@@ -91,8 +91,10 @@ function importFromCsv(csv) {
     return csv
         .split('\n')
         .map(line => line.split(';'))
-        .filter(fields => add(fields[1], fields[0], fields[2]) ||
-                          update(fields[1], fields[0], fields[2]))
+        .filter(fields => ((name, phone, email) =>
+            add(phone, name, email) ||
+            update(phone, name, email)
+        ).apply([], fields))
         .length;
 }
 
